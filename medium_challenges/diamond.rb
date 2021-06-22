@@ -115,10 +115,9 @@ class Diamond
     internal_space_count = get_width(letter) - SPACES_FOR_LETTERS
     internal_spaces = " " * internal_space_count
 
-    side_space_count = (@@diamond_width - internal_space_count - SPACES_FOR_LETTERS) / 2
-    side_spaces = side_space_count.negative? ? "" : " " * side_space_count
+    diamond_edge = "#{letter}#{internal_spaces}#{letter}"
 
-    "#{side_spaces}#{letter}#{internal_spaces}#{letter}#{side_spaces}\n"
+    diamond_edge.center(@@diamond_width) + "\n"
   end
 
   def self.get_width(letter)
@@ -130,9 +129,6 @@ class Diamond
   end
 
   def self.get_diamond_letters(letter)
-    top_half = ('A'..letter).to_a
-    bottom_half = top_half.reverse
-    bottom_half.shift
-    top_half + bottom_half
+    ('A'..letter).to_a + ('A'...letter).to_a.reverse
   end
 end
