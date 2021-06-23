@@ -65,6 +65,7 @@ class Robot
       break unless new_name == name || @@history.include?(new_name)
     end
 
+    @@history.delete(name)
     @@history << new_name
     self.name = new_name
   end
