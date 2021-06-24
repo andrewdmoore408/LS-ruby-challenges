@@ -66,7 +66,7 @@ class Element
 end
 
 class SimpleLinkedList
-  attr_reader :size, :head
+  attr_reader :head, :size
 
   def initialize
     @size = 0
@@ -92,32 +92,26 @@ class SimpleLinkedList
   end
 
   def pop
-    new_head = head.next
-    popped = head.datum
-    self.head = new_head
+    popped_data = peek
+    self.head = head.next
     self.size -= 1
-    popped
+    popped_data
   end
 
   def push(item)
-    elem = Element.new(item)
-    elem.next = head
+    elem = Element.new(item, head)
     self.head = elem
     self.size += 1
   end
 
   def reverse
-    elements = to_a
-    elements.reverse!
-    reversed = SimpleLinkedList.from_a(elements)
-    reversed
+    SimpleLinkedList.from_a(to_a.reverse)
   end
 
   def to_a
+    return [] if empty?
+
     arr = []
-
-    return arr if empty?
-
     current = head
 
     loop do
